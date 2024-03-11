@@ -30,6 +30,11 @@ export class StudioController {
     return this.studioService.findOne(id);
   }
 
+  @Get('studio/:studio')
+  findByStudio(@Param('studio') studio: string) {
+    return this.studioService.findByStudio(studio);
+  }
+
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateStudioDto: UpdateStudioDto) {
     return this.studioService.update(id, updateStudioDto);
