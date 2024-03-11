@@ -22,6 +22,18 @@ export class PrismaGenreRepository implements GenreRepository {
       .then((data) => data);
   }
 
+  async findByGenre(genre: string): Promise<Genre[]> {
+    return await this.prisma.genre
+      .findMany({
+        where: {
+          genre: {
+            contains: genre,
+          },
+        },
+      })
+      .then((data) => data);
+  }
+
   async findAll(): Promise<Genre[]> {
     return await this.prisma.genre.findMany().then((data) => data);
   }

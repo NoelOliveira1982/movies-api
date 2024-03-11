@@ -22,6 +22,18 @@ export class PrismaStudioRepository implements StudioRepository {
       .then((data) => data);
   }
 
+  async findByStudio(studio: string): Promise<Studio[]> {
+    return await this.prisma.studio
+      .findMany({
+        where: {
+          studio: {
+            contains: studio,
+          },
+        },
+      })
+      .then((data) => data);
+  }
+
   async findAll(): Promise<Studio[]> {
     return await this.prisma.studio.findMany().then((data) => data);
   }
