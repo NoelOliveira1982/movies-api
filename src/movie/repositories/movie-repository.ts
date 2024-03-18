@@ -1,14 +1,11 @@
 import { CreateMovieDto } from '../dto/create-movie.dto';
-import { GetMovieDto } from '../dto/get-movie.dto';
 import { UpdateMovieDto } from '../dto/update-movie.dto';
+import { Movie } from '../entities/movie.entity';
 
 export abstract class MovieRepository {
-  abstract create(body: CreateMovieDto): Promise<GetMovieDto>;
-  abstract findOne(id: string): Promise<GetMovieDto>;
-  abstract findAll(): Promise<GetMovieDto[]>;
-  abstract remove(id: string): Promise<GetMovieDto>;
-  abstract update(
-    id: string,
-    updateMovieDto: UpdateMovieDto,
-  ): Promise<GetMovieDto>;
+  abstract create(body: CreateMovieDto): Promise<Movie>;
+  abstract findOne(id: string): Promise<Movie>;
+  abstract findAll(): Promise<Movie[]>;
+  abstract remove(id: string): Promise<Movie>;
+  abstract update(id: string, updateMovieDto: UpdateMovieDto): Promise<Movie>;
 }

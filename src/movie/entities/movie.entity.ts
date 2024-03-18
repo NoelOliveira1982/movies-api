@@ -7,5 +7,5 @@ export class Movie {
   studio: Studio;
   audience_score: string;
   year: number;
-  Genre: Genre;
+  genre: Genre;
 }
