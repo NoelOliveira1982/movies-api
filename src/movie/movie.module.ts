@@ -14,4 +14,4 @@ import { PrismaMovieRepository } from './repositories/prisma/prisma-movie-reposi
     PrismaService,
   ],
 })
-export class MovieModule { }
+export class MovieModule {}

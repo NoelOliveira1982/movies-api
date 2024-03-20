@@ -13,7 +13,7 @@ import { MovieRepository } from './repositories/movie-repository';
 
 @Controller('movie')
 export class MovieController {
-  constructor(private readonly movieService: MovieRepository) { }
+  constructor(private readonly movieService: MovieRepository) {}
 
   @Post()
   create(@Body() createMovieDto: CreateMovieDto) {

@@ -13,7 +13,7 @@ import { StudioRepository } from './repositories/studio-repository';
 
 @Controller('studio')
 export class StudioController {
-  constructor(private readonly studioService: StudioRepository) { }
+  constructor(private readonly studioService: StudioRepository) {}
 
   @Post()
   create(@Body() createStudioDto: CreateStudioDto) {

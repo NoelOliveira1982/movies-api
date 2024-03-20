@@ -26,12 +26,28 @@ model Studio {
 }
 
 model Movie {
-  id_movie       String @id
+  id_movie       String       @id
   title          String
   id_studio      String
-  studio         Studio @relation(fields: [id_studio], references: [id_studio])
+  studio         Studio       @relation(fields: [id_studio], references: [id_studio])
   audience_score String
   year           Int
   id_genre       String
-  genre          Genre  @relation(fields: [id_genre], references: [id_genre])
+  genre          Genre        @relation(fields: [id_genre], references: [id_genre])
+  User_Movie     User_Movie[]
+}
+
+model User {
+  id_user    String       @id
+  username   String       @unique
+  password   String
+  User_Movie User_Movie[]
+}
+
+model User_Movie {
+  id_user_movie String @id
+  id_user       String
+  user          User   @relation(fields: [id_user], references: [id_user])
+  id_movie      String
+  movie         Movie  @relation(fields: [id_movie], references: [id_movie])
 }

@@ -21,6 +21,11 @@ export class PrismaMovieRepository implements MovieRepository {
         include: {
           genre: true,
           studio: true,
+          User_Movie: {
+            include: {
+              user: true,
+            },
+          },
         },
       })
       .then((data) => data);
@@ -37,6 +42,11 @@ export class PrismaMovieRepository implements MovieRepository {
         include: {
           genre: true,
           studio: true,
+          User_Movie: {
+            include: {
+              user: true,
+            },
+          },
         },
       })
       .then((data) => data);
@@ -51,6 +61,11 @@ export class PrismaMovieRepository implements MovieRepository {
         include: {
           genre: true,
           studio: true,
+          User_Movie: {
+            include: {
+              user: true,
+            },
+          },
         },
       })
       .then((data) => data);
@@ -65,6 +80,11 @@ export class PrismaMovieRepository implements MovieRepository {
         include: {
           genre: true,
           studio: true,
+          User_Movie: {
+            include: {
+              user: true,
+            },
+          },
         },
       })
       .then((data) => data);
@@ -88,6 +108,11 @@ export class PrismaMovieRepository implements MovieRepository {
         include: {
           genre: true,
           studio: true,
+          User_Movie: {
+            include: {
+              user: true,
+            },
+          },
         },
       })
       .then((data) => data);
@@ -101,6 +126,11 @@ export class PrismaMovieRepository implements MovieRepository {
         include: {
           genre: true,
           studio: true,
+          User_Movie: {
+            include: {
+              user: true,
+            },
+          },
         },
       })
       .then((data) => data);
@@ -126,6 +156,11 @@ export class PrismaMovieRepository implements MovieRepository {
         include: {
           genre: true,
           studio: true,
+          User_Movie: {
+            include: {
+              user: true,
+            },
+          },
         },
       })
       .then((data) => data);
