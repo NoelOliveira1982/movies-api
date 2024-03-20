@@ -26,6 +26,50 @@ export class PrismaMovieRepository implements MovieRepository {
       .then((data) => data);
   }
 
+  async findByTitle(title: string): Promise<Movie[]> {
+    return await this.prisma.movie
+      .findMany({
+        where: {
+          title: {
+            contains: title,
+          },
+        },
+        include: {
+          genre: true,
+          studio: true,
+        },
+      })
+      .then((data) => data);
+  }
+
+  async findByGenre(genreId: string): Promise<Movie[]> {
+    return await this.prisma.movie
+      .findMany({
+        where: {
+          id_genre: genreId,
+        },
+        include: {
+          genre: true,
+          studio: true,
+        },
+      })
+      .then((data) => data);
+  }
+
+  async findByStudio(studioId: string): Promise<Movie[]> {
+    return await this.prisma.movie
+      .findMany({
+        where: {
+          id_studio: studioId,
+        },
+        include: {
+          genre: true,
+          studio: true,
+        },
+      })
+      .then((data) => data);
+  }
+
   async findAll(): Promise<Movie[]> {
     return await this.prisma.movie
       .findMany({
