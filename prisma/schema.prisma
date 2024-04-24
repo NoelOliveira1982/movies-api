@@ -14,40 +14,103 @@ datasource db {
 }
 
 model Genre {
-  id_genre String  @id
+  id_genre String  @id @default(uuid())
   genre    String  @unique
   Movie    Movie[]
 }
 
 model Studio {
-  id_studio String  @id
+  id_studio String  @id @default(uuid())
   studio    String  @unique
   Movie     Movie[]
 }
 
 model Movie {
-  id_movie       String       @id
-  title          String
-  id_studio      String
-  studio         Studio       @relation(fields: [id_studio], references: [id_studio])
-  audience_score String
-  year           Int
-  id_genre       String
-  genre          Genre        @relation(fields: [id_genre], references: [id_genre])
-  User_Movie     User_Movie[]
+  id_movie         String             @id @default(uuid())
+  title            String
+  id_studio        String
+  studio           Studio             @relation(fields: [id_studio], references: [id_studio])
+  audience_score   String
+  year             Int
+  id_genre         String
+  genre            Genre              @relation(fields: [id_genre], references: [id_genre])
+  User_Movie       User_Movie[]
+  Enterprise_Movie Enterprise_Movie[]
 }
 
 model User {
-  id_user    String       @id
+  id_user    String       @id @default(uuid())
   username   String       @unique
   password   String
   User_Movie User_Movie[]
 }
 
+model Method_Payment {
+  id_method_payment           String    @id @default(uuid())
+  method                      String
+  quantity_installments       Int       @default(1)
+  fees_per_installment        Decimal   @default(0.0)
+  quantity_installment_to_tax Int       @default(1)
+  Payment                     Payment[]
+}
+
+model Currency {
+  id_currency String    @id @default(uuid())
+  currency    String
+  Payment     Payment[]
+}
+
+model Payment {
+  id_payment        String         @id @default(uuid())
+  id_method_payment String
+  method            Method_Payment @relation(fields: [id_method_payment], references: [id_method_payment])
+  value             BigInt
+  id_currency       String
+  currency          Currency       @relation(fields: [id_currency], references: [id_currency])
+  conversion_value  BigInt
+  id_promo_code     String
+  promo_code        Promo_Code     @relation(fields: [id_promo_code], references: [id_promo_code])
+  User_Movie        User_Movie[]
+}
+
 model User_Movie {
-  id_user_movie String @id
+  id_user_movie String  @id @default(uuid())
   id_user       String
-  user          User   @relation(fields: [id_user], references: [id_user])
+  user          User    @relation(fields: [id_user], references: [id_user])
   id_movie      String
-  movie         Movie  @relation(fields: [id_movie], references: [id_movie])
+  movie         Movie   @relation(fields: [id_movie], references: [id_movie])
+  id_payment    String
+  payment       Payment @relation(fields: [id_payment], references: [id_payment])
+}
+
+model Promo_Code {
+  id_promo_code String    @id @default(uuid())
+  code          String
+  percentage    Decimal
+  Payment       Payment[]
+}
+
+model Type_Document {
+  id_type_document String       @id @default(uuid())
+  type_document    String
+  format           String
+  Enterprise       Enterprise[]
+}
+
+model Enterprise {
+  id_enterprise       String             @id @default(uuid())
+  document            String
+  id_type_document    String
+  type_document       Type_Document      @relation(fields: [id_type_document], references: [id_type_document])
+  contract_expires_at DateTime
+  Enterprise_Movie    Enterprise_Movie[]
+}
+
+model Enterprise_Movie {
+  id_enterprise_movie String     @id @default(uuid())
+  id_enterprise       String
+  enterprise          Enterprise @relation(fields: [id_enterprise], references: [id_enterprise])
+  id_movie            String
+  movie               Movie      @relation(fields: [id_movie], references: [id_movie])
+  cost                BigInt
 }
