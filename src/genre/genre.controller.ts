@@ -30,6 +30,11 @@ export class GenreController {
     return this.genreService.findOne(id);
   }
 
+  @Get('genre/:genre')
+  findByGenre(@Param('genre') genre: string) {
+    return this.genreService.findByGenre(genre);
+  }
+
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateGenreDto: UpdateGenreDto) {
     return this.genreService.update(id, updateGenreDto);
