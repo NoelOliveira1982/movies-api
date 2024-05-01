@@ -10,6 +10,7 @@ import { EnterpriseModule } from './enterprise/enterprise.module';
 import { TypeDocumentModule } from './type-document/type-document.module';
 import { MethodPaymentModule } from './method-payment/method-payment.module';
 import { PaymentModule } from './payment/payment.module';
+import { CurrencyModule } from './currency/currency.module';
 
 @Module({
   imports: [
@@ -21,8 +22,9 @@ import { PaymentModule } from './payment/payment.module';
     TypeDocumentModule,
     MethodPaymentModule,
     PaymentModule,
+    CurrencyModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],
 })
-export class AppModule { }
+export class AppModule {}

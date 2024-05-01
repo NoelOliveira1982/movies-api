@@ -15,7 +15,7 @@ import { UserRepository } from './repositories/user-repository';
 export class UserController {
   constructor(private readonly userService: UserRepository) {}
 
-  @Post()
+  @Post('login/')
   login(@Body() createUserDto: CreateUserDto) {
     return this.userService.login(createUserDto);
   }

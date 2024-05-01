@@ -59,9 +59,10 @@ model Method_Payment {
 }
 
 model Currency {
-  id_currency String    @id @default(uuid())
-  currency    String
-  Payment     Payment[]
+  id_currency       String    @id @default(uuid())
+  currency          String
+  relation_to_dolar Decimal
+  Payment           Payment[]
 }
 
 model Payment {
