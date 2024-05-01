@@ -11,6 +11,20 @@ export class PrismaUserRepository implements UserRepository {
   constructor(private prisma: PrismaService) {
     //
   }
+  async login({ username, password }: CreateUserDto): Promise<boolean> {
+    const user = await this.prisma.user
+      .findFirst({
+        where: {
+          AND: {
+            username,
+            password,
+          },
+        },
+      })
+      .then((data) => data);
+
+    return !!user;
+  }
 
   async findOne(id: string): Promise<User> {
     return await this.prisma.user

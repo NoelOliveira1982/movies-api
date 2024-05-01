@@ -13,7 +13,12 @@ import { UserRepository } from './repositories/user-repository';
 
 @Controller('user')
 export class UserController {
-  constructor(private readonly userService: UserRepository) { }
+  constructor(private readonly userService: UserRepository) {}
+
+  @Post()
+  login(@Body() createUserDto: CreateUserDto) {
+    return this.userService.login(createUserDto);
+  }
 
   @Post()
   create(@Body() createUserDto: CreateUserDto) {

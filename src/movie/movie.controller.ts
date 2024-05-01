@@ -10,6 +10,8 @@ import {
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
 import { MovieRepository } from './repositories/movie-repository';
+import { CreateMovieEnterpriseDto } from './dto/create-movie-enterprise.dto';
+import { UpdateMovieWithEnterpriseDto } from './dto/update-movie-enterprise.dto';
 
 @Controller('movie')
 export class MovieController {
@@ -18,6 +20,11 @@ export class MovieController {
   @Post()
   create(@Body() createMovieDto: CreateMovieDto) {
     return this.movieService.create(createMovieDto);
+  }
+
+  @Post('enterprise/')
+  createWithEnterprise(@Body() createMovieDto: CreateMovieEnterpriseDto) {
+    return this.movieService.createWithEnterprise(createMovieDto);
   }
 
   @Get()
@@ -45,9 +52,22 @@ export class MovieController {
     return this.movieService.findByStudio(id);
   }
 
+  @Get('enterprise/:id')
+  findByEnterprise(@Param('id') id: string) {
+    return this.movieService.findByEnterprise(id);
+  }
+
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateMovieDto: UpdateMovieDto) {
     return this.movieService.update(id, updateMovieDto);
+  }
+
+  @Patch('enterprise/:id')
+  updateWithEnterprise(
+    @Param('id') id: string,
+    @Body() UpdateMovieDto: UpdateMovieWithEnterpriseDto,
+  ) {
+    return this.movieService.updateWithEnterprise(id, UpdateMovieDto);
   }
 
   @Delete(':id')

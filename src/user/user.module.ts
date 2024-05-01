@@ -14,4 +14,4 @@ import { UserRepository } from './repositories/user-repository';
     PrismaService,
   ],
 })
-export class UserModule { }
+export class UserModule {}

@@ -17,12 +17,16 @@ model Genre {
   id_genre String  @id @default(uuid())
   genre    String  @unique
   Movie    Movie[]
+
+  @@index([genre])
 }
 
 model Studio {
   id_studio String  @id @default(uuid())
   studio    String  @unique
   Movie     Movie[]
+
+  @@index([studio])
 }
 
 model Movie {

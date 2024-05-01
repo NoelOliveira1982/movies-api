@@ -5,6 +5,9 @@ import { UpdateMovieDto } from '../../dto/update-movie.dto';
 import { CreateMovieDto } from '../../dto/create-movie.dto';
 import { PrismaService } from 'src/database/prisma.service';
 import { Movie } from 'src/movie/entities/movie.entity';
+import { MovieWithEnterprise } from 'src/movie/entities/movie-with-enterprise.entity';
+import { UpdateMovieWithEnterpriseDto } from 'src/movie/dto/update-movie-enterprise.dto';
+import { CreateMovieEnterpriseDto } from 'src/movie/dto/create-movie-enterprise.dto';
 
 @Injectable()
 export class PrismaMovieRepository implements MovieRepository {
@@ -90,6 +93,25 @@ export class PrismaMovieRepository implements MovieRepository {
       .then((data) => data);
   }
 
+  async findByEnterprise(enterpriseId: string): Promise<MovieWithEnterprise[]> {
+    return await this.prisma.enterprise_Movie
+      .findMany({
+        where: {
+          id_enterprise: enterpriseId,
+        },
+        include: {
+          enterprise: true,
+          movie: {
+            include: {
+              genre: true,
+              studio: true,
+            },
+          },
+        },
+      })
+      .then((data) => data);
+  }
+
   async findAll(): Promise<Movie[]> {
     return await this.prisma.movie
       .findMany({
@@ -118,6 +140,25 @@ export class PrismaMovieRepository implements MovieRepository {
       .then((data) => data);
   }
 
+  async removeFromEnterprise(
+    id_movie_enterprise: string,
+  ): Promise<MovieWithEnterprise> {
+    return await this.prisma.enterprise_Movie
+      .delete({
+        where: { id_enterprise_movie: id_movie_enterprise },
+        include: {
+          enterprise: true,
+          movie: {
+            include: {
+              genre: true,
+              studio: true,
+            },
+          },
+        },
+      })
+      .then((data) => data);
+  }
+
   async update(id: string, updateMovieDto: UpdateMovieDto): Promise<Movie> {
     return await this.prisma.movie
       .update({
@@ -129,6 +170,27 @@ export class PrismaMovieRepository implements MovieRepository {
           User_Movie: {
             include: {
               user: true,
+            },
+          },
+        },
+      })
+      .then((data) => data);
+  }
+
+  async updateWithEnterprise(
+    id: string,
+    updateMovieDto: UpdateMovieWithEnterpriseDto,
+  ): Promise<MovieWithEnterprise> {
+    return await this.prisma.enterprise_Movie
+      .update({
+        where: { id_enterprise_movie: id },
+        data: updateMovieDto,
+        include: {
+          enterprise: true,
+          movie: {
+            include: {
+              genre: true,
+              studio: true,
             },
           },
         },
@@ -159,6 +221,25 @@ export class PrismaMovieRepository implements MovieRepository {
           User_Movie: {
             include: {
               user: true,
+            },
+          },
+        },
+      })
+      .then((data) => data);
+  }
+
+  async createWithEnterprise(
+    data: CreateMovieEnterpriseDto,
+  ): Promise<MovieWithEnterprise> {
+    return await this.prisma.enterprise_Movie
+      .create({
+        data,
+        include: {
+          enterprise: true,
+          movie: {
+            include: {
+              genre: true,
+              studio: true,
             },
           },
         },

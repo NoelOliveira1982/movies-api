@@ -1,45 +1,61 @@
 import { Injectable } from '@nestjs/common';
-import { CreateEnterpriseDto } from '../../dto/create-enterprise.dto';
+import { EnterpriseRepository } from '../enterprise-repository';
+import { Enterprise } from '../../entities/enterprise.entity';
 import { UpdateEnterpriseDto } from '../../dto/update-enterprise.dto';
-import { PrismaService } from "../../../database/prisma.service";
+import { CreateEnterpriseDto } from '../../dto/create-enterprise.dto';
+import { PrismaService } from 'src/database/prisma.service';
 
 @Injectable()
-export class EnterpriseService {
+export class PrismaEnterpriseRepository implements EnterpriseRepository {
   constructor(private prisma: PrismaService) {
     //
   }
-  create(createEnterpriseDto: CreateEnterpriseDto) {
-    return 'This action adds a new enterprise';
+
+  async findOne(id: string): Promise<Enterprise> {
+    return await this.prisma.enterprise
+      .findFirst({
+        where: {
+          id_enterprise: id,
+        },
+        include: {
+          Enterprise_Movie: false,
+          type_document: true,
+        },
+      })
+      .then((data) => data);
   }
 
-  findAll() {
-    return `This action returns all enterprise`;
+  async findAll(): Promise<Enterprise[]> {
+    return await this.prisma.enterprise
+      .findMany({
+        include: {
+          Enterprise_Movie: false,
+          type_document: true,
+        },
+      })
+      .then((data) => data);
   }
 
-  findOne(id: string) {
-    return await this.prisma.enterprise.findFirst({
-      where: {
-        id_enterprise: id,
-      },
-      include: {
-        document: true,
-        TypeDocument: {
-          include: {
-            type_document: true,
-            format: true,
-        }
-      },
-        contract_expires_at:true,
-      }
-    });
-    }
+  async remove(id: string): Promise<Enterprise> {
+    return await this.prisma.enterprise
+      .delete({ where: { id_enterprise: id } })
+      .then((data) => data);
   }
 
-  update(id: number, updateEnterpriseDto: UpdateEnterpriseDto) {
-    return `This action updates a #${id} enterprise`;
+  async update(
+    id: string,
+    updateEnterpriseDto: UpdateEnterpriseDto,
+  ): Promise<Enterprise> {
+    return await this.prisma.enterprise
+      .update({ where: { id_enterprise: id }, data: updateEnterpriseDto })
+      .then((data) => data);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} enterprise`;
+  async create(data: CreateEnterpriseDto): Promise<Enterprise> {
+    return await this.prisma.enterprise
+      .create({
+        data,
+      })
+      .then((data) => data);
   }
 }
