@@ -68,10 +68,10 @@ model Payment {
   id_payment        String         @id @default(uuid())
   id_method_payment String
   method            Method_Payment @relation(fields: [id_method_payment], references: [id_method_payment])
-  value             BigInt
+  value             Int
   id_currency       String
   currency          Currency       @relation(fields: [id_currency], references: [id_currency])
-  conversion_value  BigInt
+  conversion_value  Int
   id_promo_code     String
   promo_code        Promo_Code     @relation(fields: [id_promo_code], references: [id_promo_code])
   User_Movie        User_Movie[]
@@ -116,5 +116,5 @@ model Enterprise_Movie {
   enterprise          Enterprise @relation(fields: [id_enterprise], references: [id_enterprise])
   id_movie            String
   movie               Movie      @relation(fields: [id_movie], references: [id_movie])
-  cost                BigInt
+  cost                Int
 }

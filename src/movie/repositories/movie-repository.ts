@@ -18,6 +18,7 @@ export abstract class MovieRepository {
     enterpriseId: string,
   ): Promise<MovieWithEnterprise[]>;
   abstract findAll(): Promise<Movie[]>;
+  abstract findAllWithEnterprise(): Promise<MovieWithEnterprise[]>;
   abstract remove(id: string): Promise<Movie>;
   abstract removeFromEnterprise(
     id_movie_enterprise: string,

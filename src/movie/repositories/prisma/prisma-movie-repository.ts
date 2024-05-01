@@ -123,6 +123,22 @@ export class PrismaMovieRepository implements MovieRepository {
       .then((data) => data);
   }
 
+  async findAllWithEnterprise(): Promise<MovieWithEnterprise[]> {
+    return await this.prisma.enterprise_Movie
+      .findMany({
+        include: {
+          enterprise: true,
+          movie: {
+            include: {
+              genre: true,
+              studio: true,
+            },
+          },
+        },
+      })
+      .then((data) => data);
+  }
+
   async remove(id: string): Promise<Movie> {
     return await this.prisma.movie
       .delete({

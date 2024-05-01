@@ -5,5 +5,5 @@ export class MovieWithEnterprise {
   id_enterprise_movie: string;
   movie: Movie;
   enterprise: Enterprise;
-  cost: bigint;
+  cost: number;
 }

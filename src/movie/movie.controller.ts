@@ -15,7 +15,7 @@ import { UpdateMovieWithEnterpriseDto } from './dto/update-movie-enterprise.dto'
 
 @Controller('movie')
 export class MovieController {
-  constructor(private readonly movieService: MovieRepository) {}
+  constructor(private readonly movieService: MovieRepository) { }
 
   @Post()
   create(@Body() createMovieDto: CreateMovieDto) {
@@ -30,6 +30,11 @@ export class MovieController {
   @Get()
   findAll() {
     return this.movieService.findAll();
+  }
+
+  @Get('enterprise/')
+  findAllWithEnterprise() {
+    return this.movieService.findAllWithEnterprise();
   }
 
   @Get(':id')
