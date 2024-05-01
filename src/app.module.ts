@@ -11,6 +11,7 @@ import { TypeDocumentModule } from './type-document/type-document.module';
 import { MethodPaymentModule } from './method-payment/method-payment.module';
 import { PaymentModule } from './payment/payment.module';
 import { CurrencyModule } from './currency/currency.module';
+import { PromoCodeModule } from './promo-code/promo-code.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { CurrencyModule } from './currency/currency.module';
     MethodPaymentModule,
     PaymentModule,
     CurrencyModule,
+    PromoCodeModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],
