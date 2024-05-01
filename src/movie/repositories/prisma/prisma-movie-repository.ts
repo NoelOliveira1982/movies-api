@@ -127,7 +127,11 @@ export class PrismaMovieRepository implements MovieRepository {
     return await this.prisma.enterprise_Movie
       .findMany({
         include: {
-          enterprise: true,
+          enterprise: {
+            include: {
+              type_document: true,
+            },
+          },
           movie: {
             include: {
               genre: true,
